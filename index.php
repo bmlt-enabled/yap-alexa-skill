@@ -9,6 +9,9 @@ require 'handlers/JustForTodayRequestHandler.php';
 require 'handlers/LaunchRequestHandler.php';
 require 'handlers/FindMeetingRequestHandler.php';
 require 'handlers/FallbackRequestHandler.php';
+require 'handlers/StopRequestHandler.php';
+require 'handlers/CancelRequestHandler.php';
+require 'handlers/SessionEndedRequestHandler.php';
 include_once 'config.php';
 include_once 'functions.php';
 
@@ -24,7 +27,10 @@ if ($requestBody) {
         new LaunchRequestHandler($responseHelper),
         new FindMeetingRequestHandler($responseHelper),
         new JustForTodayRequestHandler($responseHelper),
-        new FallbackRequestHandler($responseHelper)
+        new FallbackRequestHandler($responseHelper),
+        new CancelRequestHandler($responseHelper),
+        new StopRequestHandler($responseHelper),
+        new SessionEndedRequestHandler($responseHelper)
     ]);
     // handle request
     $requestHandler = $requestHandlerRegistry->getSupportingHandler($alexaRequest);

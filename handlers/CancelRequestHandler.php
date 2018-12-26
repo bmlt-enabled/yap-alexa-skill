@@ -7,7 +7,7 @@ use MaxBeckers\AmazonAlexa\RequestHandler\AbstractRequestHandler;
 use MaxBeckers\AmazonAlexa\Response\Card;
 use MaxBeckers\AmazonAlexa\Response\Response;
 
-class HelpNeededRequestHandler extends AbstractRequestHandler
+class CancelRequestHandler extends AbstractRequestHandler
 {
     /**
      * @var ResponseHelper
@@ -29,7 +29,7 @@ class HelpNeededRequestHandler extends AbstractRequestHandler
     public function supportsRequest(Request $request): bool
     {
         // support amazon help request, amazon default intents are prefixed with "AMAZON."
-        return $request->request instanceof IntentRequest && 'AMAZON.HelpIntent' === $request->request->intent->name;
+        return $request->request instanceof IntentRequest && 'AMAZON.CancelIntent' === $request->request->intent->name;
     }
 
     /**
@@ -37,6 +37,6 @@ class HelpNeededRequestHandler extends AbstractRequestHandler
      */
     public function handleRequest(Request $request): Response
     {
-        return $this->responseHelper->respond('To search for a meeting, you can say something like... find a meeting in Willow Spring, North Carolina, or search by postal code.  You can also play the just for today, by saying... play just for today.');
+        return $this->responseHelper->respond("");
     }
 }

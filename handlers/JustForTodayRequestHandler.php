@@ -7,7 +7,7 @@ use MaxBeckers\AmazonAlexa\RequestHandler\AbstractRequestHandler;
 use MaxBeckers\AmazonAlexa\Response\Card;
 use MaxBeckers\AmazonAlexa\Response\Response;
 
-class HelpRequestHandler extends AbstractRequestHandler
+class JustForTodayRequestHandler extends AbstractRequestHandler
 {
     /**
      * @var ResponseHelper
@@ -29,7 +29,7 @@ class HelpRequestHandler extends AbstractRequestHandler
     public function supportsRequest(Request $request): bool
     {
         // support amazon help request, amazon default intents are prefixed with "AMAZON."
-        return $request->request instanceof IntentRequest && 'AMAZON.HelpIntent' === $request->request->intent->name;
+        return $request->request instanceof IntentRequest && 'JustForTodayIntent' === $request->request->intent->name;
     }
 
     /**
@@ -37,6 +37,11 @@ class HelpRequestHandler extends AbstractRequestHandler
      */
     public function handleRequest(Request $request): Response
     {
-        return $this->responseHelper->respond('This is your help response.');
+        $result = get("https://www.jftna.org/jft/");
+        $stripped_results = strip_tags($result);
+        $without_tabs = str_replace("\t", "", $stripped_results);
+        $without_htmlentities = html_entity_decode($without_tabs);
+        $without_extranewlines = preg_replace("/[\r\n]+/", "\n\n", $without_htmlentities);
+        return $this->responseHelper->respond($without_extranewlines);
     }
 }

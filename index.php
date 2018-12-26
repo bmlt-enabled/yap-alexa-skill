@@ -5,9 +5,10 @@ use MaxBeckers\AmazonAlexa\RequestHandler\RequestHandlerRegistry;
 use MaxBeckers\AmazonAlexa\Validation\RequestValidator;
 require 'vendor/autoload.php';
 require 'handlers/HelpRequestHandler.php';
-require 'handlers/SimpleIntentRequestHandler.php';
+require 'handlers/JustForTodayRequestHandler.php';
 require 'handlers/LaunchRequestHandler.php';
 include_once 'config.php';
+include_once 'functions.php';
 
 $requestBody = file_get_contents('php://input');
 error_log($requestBody);
@@ -18,13 +19,10 @@ if ($requestBody) {
     $validator->validate($alexaRequest);
     // add handlers to registry
     $responseHelper         = new ResponseHelper();
-    $helpRequestHandler     = new HelpRequestHandler($responseHelper);
-    $simpleRequestHandler = new SimpleIntentRequestHandler($responseHelper);
-    $launchRequestHandler   = new LaunchRequestHandler($responseHelper);
     $requestHandlerRegistry = new RequestHandlerRegistry([
-        $helpRequestHandler,
-        $simpleRequestHandler,
-        $launchRequestHandler
+        new HelpRequestHandler($responseHelper),
+        new LaunchRequestHandler($responseHelper),
+        new JustForTodayRequestHandler($responseHelper)
     ]);
     // handle request
     $requestHandler = $requestHandlerRegistry->getSupportingHandler($alexaRequest);

@@ -28,6 +28,7 @@ class LaunchRequestHandler extends AbstractRequestHandler
      */
     public function supportsRequest(Request $request): bool
     {
+        // support amazon help request, amazon default intents are prefixed with "AMAZON."
         return $request->request->type === 'LaunchRequest';
     }
 
@@ -36,6 +37,6 @@ class LaunchRequestHandler extends AbstractRequestHandler
      */
     public function handleRequest(Request $request): Response
     {
-        return $this->responseHelper->respond('Welcome To Archsearch.  You can search for a location now.');
+        return $this->responseHelper->respond('Welcome to Archsearch, you can search for a meeting now.');
     }
 }

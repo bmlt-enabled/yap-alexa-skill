@@ -7,7 +7,7 @@ use MaxBeckers\AmazonAlexa\RequestHandler\AbstractRequestHandler;
 use MaxBeckers\AmazonAlexa\Response\Card;
 use MaxBeckers\AmazonAlexa\Response\Response;
 
-class HelpRequestHandler extends AbstractRequestHandler
+class FindMeetingRequestHandler extends AbstractRequestHandler
 {
     /**
      * @var ResponseHelper
@@ -28,8 +28,7 @@ class HelpRequestHandler extends AbstractRequestHandler
      */
     public function supportsRequest(Request $request): bool
     {
-        // support amazon help request, amazon default intents are prefixed with "AMAZON."
-        return $request->request instanceof IntentRequest && 'AMAZON.HelpIntent' === $request->request->intent->name;
+        return $request->request instanceof IntentRequest && 'FindMeetingIntent' === $request->request->intent->name;
     }
 
     /**
@@ -37,6 +36,6 @@ class HelpRequestHandler extends AbstractRequestHandler
      */
     public function handleRequest(Request $request): Response
     {
-        return $this->responseHelper->respond('This is your help response.');
+        return $this->responseHelper->respond(getMeetings($request->request->intent->slots[0]->value));
     }
 }

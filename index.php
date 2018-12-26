@@ -4,9 +4,11 @@ use MaxBeckers\AmazonAlexa\Request\Request;
 use MaxBeckers\AmazonAlexa\RequestHandler\RequestHandlerRegistry;
 use MaxBeckers\AmazonAlexa\Validation\RequestValidator;
 require 'vendor/autoload.php';
-require 'handlers/HelpRequestHandler.php';
+require 'handlers/HelpNeededRequestHandler.php';
 require 'handlers/JustForTodayRequestHandler.php';
 require 'handlers/LaunchRequestHandler.php';
+require 'handlers/FindMeetingRequestHandler.php';
+require 'handlers/FallbackRequestHandler.php';
 include_once 'config.php';
 include_once 'functions.php';
 
@@ -14,15 +16,15 @@ $requestBody = file_get_contents('php://input');
 error_log($requestBody);
 if ($requestBody) {
     $alexaRequest = Request::fromAmazonRequest($requestBody, $_SERVER['HTTP_SIGNATURECERTCHAINURL'], $_SERVER['HTTP_SIGNATURE']);
-    // Request validation
     $validator = new RequestValidator();
     $validator->validate($alexaRequest);
-    // add handlers to registry
     $responseHelper         = new ResponseHelper();
     $requestHandlerRegistry = new RequestHandlerRegistry([
-        new HelpRequestHandler($responseHelper),
+        new HelpNeededRequestHandler($responseHelper),
         new LaunchRequestHandler($responseHelper),
-        new JustForTodayRequestHandler($responseHelper)
+        new FindMeetingRequestHandler($responseHelper),
+        new JustForTodayRequestHandler($responseHelper),
+        new FallbackRequestHandler($responseHelper)
     ]);
     // handle request
     $requestHandler = $requestHandlerRegistry->getSupportingHandler($alexaRequest);

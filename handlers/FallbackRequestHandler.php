@@ -7,7 +7,7 @@ use MaxBeckers\AmazonAlexa\RequestHandler\AbstractRequestHandler;
 use MaxBeckers\AmazonAlexa\Response\Card;
 use MaxBeckers\AmazonAlexa\Response\Response;
 
-class JustForTodayRequestHandler extends AbstractRequestHandler
+class FallbackRequestHandler extends AbstractRequestHandler
 {
     /**
      * @var ResponseHelper
@@ -28,7 +28,8 @@ class JustForTodayRequestHandler extends AbstractRequestHandler
      */
     public function supportsRequest(Request $request): bool
     {
-        return $request->request instanceof IntentRequest && 'JustForTodayIntent' === $request->request->intent->name;
+        // support amazon help request, amazon default intents are prefixed with "AMAZON."
+        return $request->request instanceof IntentRequest && 'AMAZON.FallbackIntent' === $request->request->intent->name;
     }
 
     /**
@@ -36,11 +37,6 @@ class JustForTodayRequestHandler extends AbstractRequestHandler
      */
     public function handleRequest(Request $request): Response
     {
-        $result = get("https://www.jftna.org/jft/");
-        $stripped_results = strip_tags($result);
-        $without_tabs = str_replace("\t", "", $stripped_results);
-        $without_htmlentities = html_entity_decode($without_tabs);
-        $without_extranewlines = preg_replace("/[\r\n]+/", "\n\n", $without_htmlentities);
-        return $this->responseHelper->respond($without_extranewlines);
+        return $this->responseHelper->respond('There appears to be an error, try your search again.');
     }
 }

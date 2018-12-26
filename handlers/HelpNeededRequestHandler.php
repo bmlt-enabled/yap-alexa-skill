@@ -37,7 +37,7 @@ class HelpNeededRequestHandler extends AbstractRequestHandler
      */
     public function handleRequest(Request $request): Response
     {
-        $content = "To search for a meeting, you can say something like...\n find a meeting in Willow Spring, North Carolina, or search by postal code.\n  You can also play the just for today, by saying... play just for today.";
+        $content = "To search for a meeting, you can say something like... find a meeting in Willow Spring, North Carolina, or search by postal code. You can also play the just for today, by saying... play just for today.";
 
         $card = Card::createSimple(
             "Help",

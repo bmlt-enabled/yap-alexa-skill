@@ -37,6 +37,6 @@ class FallbackRequestHandler extends AbstractRequestHandler
      */
     public function handleRequest(Request $request): Response
     {
-        return $this->responseHelper->respond('There appears to be an error, try your search again.', true);
+        return $this->responseHelper->respond('There appears to be an error, try your search again.', false);
     }
 }

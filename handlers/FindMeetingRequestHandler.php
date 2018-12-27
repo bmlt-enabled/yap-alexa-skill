@@ -36,6 +36,6 @@ class FindMeetingRequestHandler extends AbstractRequestHandler
      */
     public function handleRequest(Request $request): Response
     {
-        return $this->responseHelper->respond(getMeetings($request->request->intent->slots[0]->value));
+        return $this->responseHelper->respond(getMeetings($request->request->intent->slots[0]->value), true);
     }
 }

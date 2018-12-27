@@ -37,6 +37,6 @@ class SessionEndedRequestHandler extends AbstractRequestHandler
      */
     public function handleRequest(Request $request): Response
     {
-        return $this->responseHelper->respond('');
+        return $this->responseHelper->respond('', true);
     }
 }

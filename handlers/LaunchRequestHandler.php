@@ -37,6 +37,6 @@ class LaunchRequestHandler extends AbstractRequestHandler
      */
     public function handleRequest(Request $request): Response
     {
-        return $this->responseHelper->respond('Welcome to Archsearch, you can search for a meeting now.');
+        return $this->responseHelper->respond('Welcome to Archsearch, you can search for a meeting now.', true);
     }
 }

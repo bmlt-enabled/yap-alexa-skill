@@ -41,6 +41,6 @@ class JustForTodayRequestHandler extends AbstractRequestHandler
         $without_tabs = str_replace("\t", "", $stripped_results);
         $without_htmlentities = html_entity_decode($without_tabs);
         $without_extranewlines = preg_replace("/[\r\n]+/", "\n\n", $without_htmlentities);
-        return $this->responseHelper->respond($without_extranewlines);
+        return $this->responseHelper->respond($without_extranewlines, true);
     }
 }

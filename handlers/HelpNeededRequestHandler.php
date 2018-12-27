@@ -42,6 +42,6 @@ class HelpNeededRequestHandler extends AbstractRequestHandler
         //$card = Card::createSimple("Help", $content);
         //$this->responseHelper->card($card);
 
-        return $this->responseHelper->respond($content, true);
+        return $this->responseHelper->respond($content, false);
     }
 }

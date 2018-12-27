@@ -37,6 +37,6 @@ class StopRequestHandler extends AbstractRequestHandler
      */
     public function handleRequest(Request $request): Response
     {
-        return $this->responseHelper->respond("", true);
+        return $this->responseHelper->respond("Your request has been stopped.", true);
     }
 }

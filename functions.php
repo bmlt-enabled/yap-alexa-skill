@@ -45,7 +45,7 @@ function getMeetings($location) {
     $graced_date_time = (new DateTime())->modify(sprintf("-%s minutes", "15"));
     $today = $graced_date_time->format("w") + 1;
     $tomorrow = $graced_date_time->modify("+24 hours")->format("w") + 1;
-    $get_meetings_from_yap = get(sprintf("https://archsearch.org/yap/api/getMeetings.php?latitude=%s&longitude=%s&results_count=%s&today=%s&tomorrow=%s",
+    $get_meetings_from_yap = get(sprintf($GLOBALS['yap_api_server'] . "/api/getMeetings.php?latitude=%s&longitude=%s&results_count=%s&today=%s&tomorrow=%s",
         $coordinates->latitude, $coordinates->longitude, $max_results, $today, $tomorrow));
     $meetings = json_decode($get_meetings_from_yap)->filteredList;
     $x = 1;

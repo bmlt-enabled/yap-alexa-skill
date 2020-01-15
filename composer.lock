@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "59dc4e1d7dfd7a48f4e5d40edc10961c",
+    "content-hash": "5f5545afceaebefcc7c1dad7005db210",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -191,16 +191,16 @@
         },
         {
             "name": "maxbeckers/amazon-alexa-php",
-            "version": "1.2.9",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maxbeckers/amazon-alexa-php.git",
-                "reference": "a21663a2e1a11ea45198bd923878e34af7634787"
+                "reference": "6743ffacc4f73bca44f5a397aa92ef947519fab7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maxbeckers/amazon-alexa-php/zipball/a21663a2e1a11ea45198bd923878e34af7634787",
-                "reference": "a21663a2e1a11ea45198bd923878e34af7634787",
+                "url": "https://api.github.com/repos/maxbeckers/amazon-alexa-php/zipball/6743ffacc4f73bca44f5a397aa92ef947519fab7",
+                "reference": "6743ffacc4f73bca44f5a397aa92ef947519fab7",
                 "shasum": ""
             },
             "require": {
@@ -248,7 +248,7 @@
                 "skill",
                 "ssml"
             ],
-            "time": "2018-12-17T14:20:35+00:00"
+            "time": "2019-12-27T18:39:08+00:00"
         },
         {
             "name": "psr/http-message",

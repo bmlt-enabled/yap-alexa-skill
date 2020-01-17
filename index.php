@@ -15,33 +15,38 @@ require 'handlers/SessionEndedRequestHandler.php';
 include_once 'config.php';
 include_once 'functions.php';
 
-$requestBody = file_get_contents('php://input');
-if ($requestBody) {
-    try {
-        $alexaRequest = Request::fromAmazonRequest($requestBody, $_SERVER['HTTP_SIGNATURECERTCHAINURL'], $_SERVER['HTTP_SIGNATURE']);
-        $validator = new RequestValidator();
-        $validator->validate($alexaRequest);
-        $responseHelper = new ResponseHelper();
-        $requestHandlerRegistry = new RequestHandlerRegistry([
-            new HelpNeededRequestHandler($responseHelper),
-            new LaunchRequestHandler($responseHelper),
-            new FindMeetingRequestHandler($responseHelper),
-            new JustForTodayRequestHandler($responseHelper),
-            new FallbackRequestHandler($responseHelper),
-            new CancelRequestHandler($responseHelper),
-            new StopRequestHandler($responseHelper),
-            new SessionEndedRequestHandler($responseHelper)
-        ]);
-        // handle request
-        $requestHandler = $requestHandlerRegistry->getSupportingHandler($alexaRequest);
-        $response = $requestHandler->handleRequest($alexaRequest);
-
-        // render response
-        header('Content-Type: application/json');
-        echo json_encode($response);
-    }
-    catch (Exception $ex) {
+try {
+    $requestBody = file_get_contents('php://input');
+    if (!isset($_SERVER['HTTP_SIGNATURECERTCHAINURL']) && !isset($_SERVER['HTTP_SIGNATURE'])) {
         http_response_code(400);
+        exit();
     }
+    if ($requestBody) {
+
+            $alexaRequest = Request::fromAmazonRequest($requestBody, $_SERVER['HTTP_SIGNATURECERTCHAINURL'], $_SERVER['HTTP_SIGNATURE']);
+            $validator = new RequestValidator();
+            $validator->validate($alexaRequest);
+            $responseHelper = new ResponseHelper();
+            $requestHandlerRegistry = new RequestHandlerRegistry([
+                new HelpNeededRequestHandler($responseHelper),
+                new LaunchRequestHandler($responseHelper),
+                new FindMeetingRequestHandler($responseHelper),
+                new JustForTodayRequestHandler($responseHelper),
+                new FallbackRequestHandler($responseHelper),
+                new CancelRequestHandler($responseHelper),
+                new StopRequestHandler($responseHelper),
+                new SessionEndedRequestHandler($responseHelper)
+            ]);
+            // handle request
+            $requestHandler = $requestHandlerRegistry->getSupportingHandler($alexaRequest);
+            $response = $requestHandler->handleRequest($alexaRequest);
+
+            // render response
+            header('Content-Type: application/json');
+            echo json_encode($response);
+        }
+    }
+catch (Exception $ex) {
+    http_response_code(400);
 }
 exit();

@@ -7,7 +7,7 @@ use MaxBeckers\AmazonAlexa\RequestHandler\AbstractRequestHandler;
 use MaxBeckers\AmazonAlexa\Response\Card;
 use MaxBeckers\AmazonAlexa\Response\Response;
 
-class JustForTodayRequestHandler extends AbstractRequestHandler
+class SpiritualPrincipleDayRequestHandler extends AbstractRequestHandler
 {
     /**
      * @var ResponseHelper
@@ -28,7 +28,7 @@ class JustForTodayRequestHandler extends AbstractRequestHandler
      */
     public function supportsRequest(Request $request): bool
     {
-        return $request->request instanceof IntentRequest && 'JustForTodayIntent' === $request->request->intent->name;
+        return $request->request instanceof IntentRequest && 'SpiritualPrincipleDayIntent' === $request->request->intent->name;
     }
 
     /**
@@ -36,7 +36,7 @@ class JustForTodayRequestHandler extends AbstractRequestHandler
      */
     public function handleRequest(Request $request): Response
     {
-        $result = get("https://jft.na.org");
+        $result = get("https://spad.na.org");
         $without_scripts = preg_replace('/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/mi', '', $result);
         $stripped_results = strip_tags($without_scripts);
         $without_tabs = str_replace("\t", "", $stripped_results);

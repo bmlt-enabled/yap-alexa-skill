@@ -4,7 +4,6 @@ use MaxBeckers\AmazonAlexa\Helper\ResponseHelper;
 use MaxBeckers\AmazonAlexa\Request\Request;
 use MaxBeckers\AmazonAlexa\Request\Request\Standard\IntentRequest;
 use MaxBeckers\AmazonAlexa\RequestHandler\AbstractRequestHandler;
-use MaxBeckers\AmazonAlexa\Response\Card;
 use MaxBeckers\AmazonAlexa\Response\Response;
 
 class SpiritualPrincipleDayRequestHandler extends AbstractRequestHandler

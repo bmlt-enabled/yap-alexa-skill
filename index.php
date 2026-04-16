@@ -6,6 +6,7 @@ use MaxBeckers\AmazonAlexa\Validation\RequestValidator;
 require 'vendor/autoload.php';
 require 'handlers/HelpNeededRequestHandler.php';
 require 'handlers/JustForTodayRequestHandler.php';
+require 'handlers/SpiritualPrincipleDayRequestHandler.php';
 require 'handlers/LaunchRequestHandler.php';
 require 'handlers/FindMeetingRequestHandler.php';
 require 'handlers/FallbackRequestHandler.php';
@@ -32,6 +33,7 @@ try {
                 new LaunchRequestHandler($responseHelper),
                 new FindMeetingRequestHandler($responseHelper),
                 new JustForTodayRequestHandler($responseHelper),
+                new SpiritualPrincipleDayRequestHandler($responseHelper),
                 new FallbackRequestHandler($responseHelper),
                 new CancelRequestHandler($responseHelper),
                 new StopRequestHandler($responseHelper),

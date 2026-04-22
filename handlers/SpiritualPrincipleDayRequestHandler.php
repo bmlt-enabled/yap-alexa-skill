@@ -40,7 +40,9 @@ class SpiritualPrincipleDayRequestHandler extends AbstractRequestHandler
         $stripped_results = strip_tags($without_scripts);
         $without_tabs = str_replace("\t", "", $stripped_results);
         $without_htmlentities = html_entity_decode($without_tabs);
-        $without_extranewlines = preg_replace("/[\r\n]+/", "\n", $without_htmlentities);
-        return $this->responseHelper->respond($without_extranewlines, true);
+        $without_dividers = preg_replace('/^[\s\x{2014}\x{2013}-]+$/mu', '', $without_htmlentities);
+        $without_extranewlines = preg_replace("/[\r\n]+/", "\n", $without_dividers);
+        $spelled_na = preg_replace('/\bNA\b/', 'N.A.', $without_extranewlines);
+        return $this->responseHelper->respond($spelled_na, true);
     }
 }

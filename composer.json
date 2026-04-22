@@ -1,5 +1,5 @@
 {
     "require": {
-        "maxbeckers/amazon-alexa-php": "^1.7"
+        "maxbeckers/amazon-alexa-php": "2.1.1"
     }
 }

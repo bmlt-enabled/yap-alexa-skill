@@ -2,3 +2,4 @@
 vendor
 *.iml
 config.php
+build/
